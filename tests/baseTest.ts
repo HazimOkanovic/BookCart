@@ -12,6 +12,14 @@ type allPages = {
 const pages = baseTest.extend<allPages>({
     homePage:async ({page}, use) => {
         await use(new HomePage(page));
+    }, 
+
+    loginPage:async ({page}, use) => {
+        await use(new LoginPage(page));
+    }, 
+
+    registerPage:async ({page}, use) => {
+        await use(new RegisterPage(page));        
     }
 });
 
