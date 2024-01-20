@@ -34,3 +34,23 @@ test('Register test', async ({ page, homePage, loginPage, registerPage }) => {
     expect(await page.url()).toMatch("https://bookcart.azurewebsites.net");
     expect(await homePage.profileNameHeader).toContainText("Hazim")
 });
+
+test('Checkout test',async ({page, homePage, productPage, cartPage, loginPage, checkOutPage, myOrdersPage}) => {
+    await homePage.clickHP2();
+    await productPage.clickAddToCartButton();
+    let price = productPage.productPrice.textContent();
+    await productPage.clickCartLink();
+    await cartPage.clickCheckOutButton();
+    await loginPage.enterUserName("HazimO");
+    await loginPage.enterPassword("Something.123");
+    await loginPage.clickLoginButton();
+    await checkOutPage.enterName("Hazim");
+    await checkOutPage.enterFirstAddress("First address");
+    await checkOutPage.enterSecondAddress("Second address");
+    await checkOutPage.enterPinCode("456464");
+    await checkOutPage.enterState("BiH");
+    await checkOutPage.clickPlaceOrder();
+    
+    expect (await myOrdersPage.pageTitle).toHaveText("My Orders");
+    expect(await page.url()).toMatch("https://bookcart.azurewebsites.net/myorders");
+})
