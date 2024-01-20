@@ -8,7 +8,7 @@ export class HomePage {
     constructor(page: Page){
         this.page = page;
         this.loginLink = page.getByText("Login");
-        this.profileNameHeader = page.getByText("HazimO");
+        this.profileNameHeader = page.getByText("Hazim");
     }
 
     async clickLoginLink(){
