@@ -1,4 +1,11 @@
-import { randomString } from "./randomString";
+const randomString = (textLength = 5) => {
+    const chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+    let string = "";
+    for (let i = 0; i < textLength; i++) {
+      string += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return `${string}`;
+};
 
 const randomStr = randomString();
 
@@ -14,7 +21,9 @@ export const data = {
     state: "BiH",
     ordersPageTitle: "My Orders",
     userId: 27148,
-    okStatus: 200
+    okStatus: 200, 
+    loginPageHeader: "Login", 
+    registrationPageHeader: "User Registration",
 }
 
 export const pagesURL = {
@@ -46,5 +55,5 @@ export const APIData = {
         "userName": "Hazim" + randomStr,
         "password": "Something.123",
         "gender": "Male"
-    },
+    }
 }

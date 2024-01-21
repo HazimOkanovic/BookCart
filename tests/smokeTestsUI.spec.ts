@@ -4,10 +4,10 @@ import { data, pagesURL } from "../utils/Data";
 test('Smoke test', async ({ baseURL, page, homePage, loginPage, registerPage, productPage, cartPage, checkOutPage, myOrdersPage }) => {
     await page.goto(`${baseURL}`);
     await homePage.clickLoginLink();
-    expect (await loginPage.loginHeader).toHaveText("Login");
+    expect (await loginPage.loginHeader).toHaveText(data.loginPageHeader);
 
     await loginPage.clickRegisterButton();
-    expect (await registerPage.registerPageHeader).toHaveText("User Registration");
+    expect (await registerPage.registerPageHeader).toHaveText(data.registrationPageHeader);
     
     await registerPage.enterFirstName(data.firstName);
     await registerPage.enterLastName(data.lastName);
@@ -16,7 +16,7 @@ test('Smoke test', async ({ baseURL, page, homePage, loginPage, registerPage, pr
     await registerPage.enterConfirmPassword(data.validPassword);
     await registerPage.clickMaleRadio();
     await registerPage.clickRegisterButton();
-    expect (await loginPage.loginHeader).toHaveText("Login");
+    expect (await loginPage.loginHeader).toHaveText(data.loginPageHeader);
     
     await loginPage.enterUserName(data.firstName + data.random);
     await loginPage.enterPassword(data.validPassword);
@@ -24,15 +24,15 @@ test('Smoke test', async ({ baseURL, page, homePage, loginPage, registerPage, pr
     expect(await page.url()).toBe(pagesURL.homePage);
     
     await homePage.clickOnSecondHarryPotterBook();
-    expect (await productPage.bookName).toHaveText("HP2")
+    expect (await productPage.bookName).toHaveText(data.harryPotterBookName)
     
     await productPage.clickAddToCartButton();
     await productPage.clickCartLink();
-    expect (await cartPage.cartPageHeader).toHaveText("Cart Items");
-    expect (await cartPage.bookName).toHaveText("HP2");
+    expect (await cartPage.cartPageHeader).toHaveText(data.cartPageHeader);
+    expect (await cartPage.bookName).toHaveText(data.harryPotterBookName);
     
     await cartPage.clickCheckOutButton();
-    expect(await checkOutPage.checkOutPageHeader).toHaveText("Check Out");
+    expect(await checkOutPage.checkOutPageHeader).toHaveText(data.checkOutPageHeader);
     
     await checkOutPage.enterName(data.firstName);
     await checkOutPage.enterFirstAddress(data.firstAddress);
@@ -45,6 +45,6 @@ test('Smoke test', async ({ baseURL, page, homePage, loginPage, registerPage, pr
 
     await myOrdersPage.clickOnProfile();
     await myOrdersPage.clickLogOut();
-    expect (await loginPage.loginHeader).toHaveText("Login");
+    expect (await loginPage.loginHeader).toHaveText(data.loginPageHeader);
     expect(await page.url()).toMatch(pagesURL.loginURL);
 });
