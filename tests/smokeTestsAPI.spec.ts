@@ -1,85 +1,29 @@
-import { test, expect } from "../tests/baseTest";
+import { ApiBookPage } from "../apiPages/apiBookPage";
+import { ApiLoginPage } from "../apiPages/apiLoginPage";
+import { ApiOrderPage } from "../apiPages/apiOrderPage";
+import { ApiRegisterPage } from "../apiPages/apiRegisterPage";
+import { test, expect } from "../tests/base";
 import { APIData, apiURLs, data } from "../utils/Data";
 
-test("Login test", async ({ request }) => {
-    const response = await request.post(apiURLs.login, {
-        headers: {
-            "Accept": "*/*",
-            "Content-Type": "application/json"
-        },
-        data: APIData.loginData
-    });
-    const jsonResponse = await response.json();
+test("API smoke test", async ({ request }) => {
+    const apiBookPage = new ApiBookPage(request);
+    await apiBookPage.getBooksRequest(data.okStatus);
 
-    expect(await response.status()).toBe(data.okStatus);
-    expect(await jsonResponse.userDetails.username).toBe(data.validUsername);
-    expect(await jsonResponse.userDetails.userId).toBe(data.userId)
-});
+    const bookId = apiBookPage.bookCallResponse[0].bookId;
+    const bookTitle = apiBookPage.bookCallResponse[0].title;
+    const bookCategory = apiBookPage.bookCallResponse[0].category;
+    const bookPrice = apiBookPage.bookCallResponse[0].price;
+    const bookAuthor = apiBookPage.bookCallResponse[0].author;
 
-test("Register test", async ({ request }) => {
-    const response = await request.post(apiURLs.register, {
-        headers: {
-            "Accept": "*/*",
-            "Content-Type": "application/json"
-        },
-        data: APIData.registerData
-    });
+    const apiRegisterPage = new ApiRegisterPage(request);
+    await apiRegisterPage.registerRequest(APIData.registerData, data.okStatus)
 
-    expect(await response.status()).toBe(data.okStatus);
-});
+    const apiLoginPage = new ApiLoginPage(request);
+    await apiLoginPage.loginRequest(APIData.registerData, data.okStatus);
 
-test("Checkout test", async ({ request }) => {
-    const responseBook = await request.get(apiURLs.book, {
-        headers: {
-            "Accept": "*/*",
-            "Content-Type": "application/json"
-        },
-        data: APIData.loginData
-    });
-    const bookResponse = await responseBook.json();
-    const bookId = bookResponse[0].bookId;
-    const bookTitle = bookResponse[0].title;
-    const bookCategory = bookResponse[0].category;
-    const bookPrice = bookResponse[0].price;
-    const bookAuthor = bookResponse[0].author;
+    const token = apiLoginPage.loginCallResponse.token;
+    const userId = apiLoginPage.loginCallResponse.userDetails.userId;
 
-    const responseLogin = await request.post(apiURLs.login, {
-        headers: {
-            "Accept": "*/*",
-            "Content-Type": "application/json"
-        },
-        data: APIData.loginData
-    });
-
-    const loginResponse = await responseLogin.json();
-    const token = loginResponse.token;
-    const userId = loginResponse.userDetails.userId;
-
-    const responseCheckout = await request.post(apiURLs.checkOut + userId, {
-        headers: {
-            "Accept": "*/*",
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        data: {
-            "orderId": "1",
-            "orderDetails": [
-                {
-                    "book":
-                    {
-                        "bookId": bookId,
-                        "title": bookTitle,
-                        "author": bookAuthor,
-                        "category": bookCategory,
-                        "price": bookPrice,
-                        "coverFileName": "string"
-                    },
-                    "quantity": 1
-                }
-            ],
-            "cartTotal": 1
-        }
-    });
-
-    expect(await responseCheckout.status()).toBe(data.okStatus);
+    const apiOrderPage = new ApiOrderPage(request);
+    await apiOrderPage.checkOutRequest(data.okStatus, token, userId, bookId, bookTitle, bookAuthor, bookCategory, bookPrice);
 });

@@ -24,6 +24,9 @@ export const data = {
     okStatus: 200, 
     loginPageHeader: "Login", 
     registrationPageHeader: "User Registration",
+    harryPotterBookName: "HP2", 
+    cartPageHeader: "Cart Items", 
+    checkOutPageHeader: "Check Out"
 }
 
 export const pagesURL = {
@@ -41,7 +44,7 @@ export const apiURLs = {
 
 export const APIData = {
     loginData: {
-        "userId": 0,
+        "userId": 27148,
         "firstName": "string",
         "lastName": "string",
         "userName": "HazimO",
