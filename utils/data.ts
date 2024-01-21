@@ -1,4 +1,11 @@
-import { randomString } from "./randomString";
+const randomString = (textLength = 5) => {
+    const chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+    let string = "";
+    for (let i = 0; i < textLength; i++) {
+      string += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return `${string}`;
+};
 
 const randomStr = randomString();
 
@@ -14,12 +21,18 @@ export const data = {
     state: "BiH",
     ordersPageTitle: "My Orders",
     userId: 27148,
-    okStatus: 200
+    okStatus: 200, 
+    loginPageHeader: "Login", 
+    registrationPageHeader: "User Registration",
+    harryPotterBookName: "HP2", 
+    cartPageHeader: "Cart Items", 
+    checkOutPageHeader: "Check Out"
 }
 
 export const pagesURL = {
-    homePage: "https://bookcart.azurewebsites.net",
-    ordersURL: "/myorders"
+    homePage: "https://bookcart.azurewebsites.net/",
+    ordersURL: "https://bookcart.azurewebsites.net/myorders",
+    loginURL: "https://bookcart.azurewebsites.net/login"
 }
 
 export const apiURLs = {
@@ -31,7 +44,7 @@ export const apiURLs = {
 
 export const APIData = {
     loginData: {
-        "userId": 0,
+        "userId": 27148,
         "firstName": "string",
         "lastName": "string",
         "userName": "HazimO",
@@ -45,5 +58,5 @@ export const APIData = {
         "userName": "Hazim" + randomStr,
         "password": "Something.123",
         "gender": "Male"
-    },
+    }
 }

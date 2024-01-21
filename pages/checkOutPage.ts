@@ -8,6 +8,7 @@ export class CheckOutPage {
     readonly pinCodeInputField: Locator;
     readonly stateInputField: Locator;
     readonly placeOrderButton: Locator;
+    readonly checkOutPageHeader: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -17,6 +18,7 @@ export class CheckOutPage {
         this.pinCodeInputField = page.locator("//input[@data-placeholder='Pincode']");
         this.stateInputField = page.locator("//input[@data-placeholder='State']");
         this.placeOrderButton = page.locator("//span[contains(text(), 'Place Order')]");
+        this.checkOutPageHeader = page.locator('h2', {hasText: 'Check'});
     };
 
     async enterName(name: string) {

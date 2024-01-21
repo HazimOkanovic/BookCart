@@ -1,4 +1,4 @@
-import { test as baseTest } from "@playwright/test";
+import { test as base } from "@playwright/test";
 import { HomePage } from "../pages/homePage";
 import { LoginPage } from "../pages/loginPage";
 import { RegisterPage } from "../pages/registerPage";
@@ -17,7 +17,7 @@ type allPages = {
     myOrdersPage: MyOrdersPage;
 };
 
-const pages = baseTest.extend<allPages>({
+const pages = base.extend<allPages>({
     homePage:async ({page}, use) => {
         await use(new HomePage(page));
     }, 
