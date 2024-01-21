@@ -1,6 +1,6 @@
 import { expect, test } from "./baseTest";
-import { randomString } from "../utils/randomString";
 import { data, pagesURL } from "../utils/Data";
+
 test.beforeEach(async ({ page, baseURL }, testInfo) => {
     console.log(`Running ${testInfo.title}`);
     await page.goto(`${baseURL}`);
@@ -21,12 +21,12 @@ test('Register test', async ({ page, homePage, loginPage, registerPage }) => {
     await loginPage.clickRegisterButton();
     await registerPage.enterFirstName(data.firstName);
     await registerPage.enterLastName(data.lastName);
-    await registerPage.enterUserName(data.firstName+data.random);
+    await registerPage.enterUserName(data.firstName + data.random);
     await registerPage.enterPassword(data.validPassword);
     await registerPage.enterConfirmPassword(data.validPassword);
     await registerPage.clickMaleRadio();
     await registerPage.clickRegisterButton();
-    await loginPage.enterUserName(data.firstName+data.random);
+    await loginPage.enterUserName(data.firstName + data.random);
     await loginPage.enterPassword(data.validPassword);
     await loginPage.clickLoginButton();
 
@@ -34,10 +34,9 @@ test('Register test', async ({ page, homePage, loginPage, registerPage }) => {
     expect(await homePage.profileNameHeader).toContainText(data.firstName)
 });
 
-test('Checkout test',async ({page, homePage, productPage, cartPage, loginPage, checkOutPage, myOrdersPage}) => {
+test('Checkout test', async ({ page, homePage, productPage, cartPage, loginPage, checkOutPage, myOrdersPage }) => {
     await homePage.clickHP2();
     await productPage.clickAddToCartButton();
-    let price = productPage.productPrice.textContent();
     await productPage.clickCartLink();
     await cartPage.clickCheckOutButton();
     await loginPage.enterUserName(data.validUsername);
@@ -49,7 +48,7 @@ test('Checkout test',async ({page, homePage, productPage, cartPage, loginPage, c
     await checkOutPage.enterPinCode(data.pinCode);
     await checkOutPage.enterState(data.state);
     await checkOutPage.clickPlaceOrder();
-    
-    expect (await myOrdersPage.pageTitle).toHaveText(data.ordersPageTitle);
+
+    expect(await myOrdersPage.pageTitle).toHaveText(data.ordersPageTitle);
     expect(await page.url()).toMatch(pagesURL.ordersURL);
 })
