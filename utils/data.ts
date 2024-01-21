@@ -18,8 +18,9 @@ export const data = {
 }
 
 export const pagesURL = {
-    homePage: "https://bookcart.azurewebsites.net",
-    ordersURL: "/myorders"
+    homePage: "https://bookcart.azurewebsites.net/",
+    ordersURL: "https://bookcart.azurewebsites.net/myorders",
+    loginURL: "https://bookcart.azurewebsites.net/login"
 }
 
 export const apiURLs = {

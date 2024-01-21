@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { expect } from "../tests/base";
 
 export class RegisterPage {
     readonly page: Page;
@@ -9,6 +10,7 @@ export class RegisterPage {
     readonly confirmPasswordInputField: Locator;
     readonly maleRadio: Locator;
     readonly registerButton: Locator;
+    readonly registerPageHeader: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -19,7 +21,8 @@ export class RegisterPage {
         this.confirmPasswordInputField = page.locator("//input[@data-placeholder='Confirm Password']");
         this.maleRadio = page.locator("(//span//span[@class='mat-radio-outer-circle'])[1]");
         this.registerButton = page.locator("//span[contains(text(), 'Register')]");
-    }
+        this.registerPageHeader = page.locator('h3', {hasText: 'User'})
+    };
 
     async enterFirstName(firstName: string) {
         await this.firstNameInputField.fill(firstName);
