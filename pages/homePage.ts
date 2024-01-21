@@ -6,18 +6,18 @@ export class HomePage {
     readonly profileNameHeader: Locator;
     readonly hp2Book: Locator;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.loginLink = page.getByText("Login");
         this.profileNameHeader = page.getByText("Hazim");
         this.hp2Book = page.getByRole('link', { name: 'HP2' });
     }
 
-    async clickLoginLink(){
+    async clickLoginLink() {
         await this.loginLink.click();
     };
 
-    async clickHP2(){
+    async clickHP2() {
         await this.hp2Book.click();
     };
 }

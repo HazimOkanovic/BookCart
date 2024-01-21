@@ -1,6 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 
-export class RegisterPage{
+export class RegisterPage {
     readonly page: Page;
     readonly firstNameInputField: Locator;
     readonly lastNameInputField: Locator;
@@ -10,7 +10,7 @@ export class RegisterPage{
     readonly maleRadio: Locator;
     readonly registerButton: Locator;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.firstNameInputField = page.locator("//input[@data-placeholder='First name']");
         this.lastNameInputField = page.locator("//input[@data-placeholder='Last Name']");
@@ -21,31 +21,31 @@ export class RegisterPage{
         this.registerButton = page.locator("//span[contains(text(), 'Register')]");
     }
 
-    async enterFirstName(firstName: string){
+    async enterFirstName(firstName: string) {
         await this.firstNameInputField.fill(firstName);
     };
 
-    async enterLastName(lastName: string){
+    async enterLastName(lastName: string) {
         await this.lastNameInputField.fill(lastName);
     };
 
-    async enterUserName(userName: string){
+    async enterUserName(userName: string) {
         await this.usernameInputField.fill(userName);
     };
 
-    async enterPassword(password: string){
+    async enterPassword(password: string) {
         await this.passwordInputField.fill(password);
     };
 
-    async enterConfirmPassword(confirmPassword: string){
+    async enterConfirmPassword(confirmPassword: string) {
         await this.confirmPasswordInputField.fill(confirmPassword);
     };
 
-    async clickMaleRadio(){
+    async clickMaleRadio() {
         await this.maleRadio.click();
     };
 
-    async clickRegisterButton(){
+    async clickRegisterButton() {
         await this.registerButton.click();
     };
 }

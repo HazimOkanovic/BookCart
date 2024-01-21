@@ -1,13 +1,13 @@
 import { Page, Locator } from "@playwright/test";
 
-export class LoginPage{
+export class LoginPage {
     readonly page: Page;
     readonly userNameInputField: Locator;
     readonly passwordInputField: Locator;
     readonly loginButton: Locator;
     readonly registerButton: Locator;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.userNameInputField = page.locator("//input[@data-placeholder='Username']");
         this.passwordInputField = page.locator("//input[@data-placeholder='Password']");
@@ -15,19 +15,19 @@ export class LoginPage{
         this.loginButton = page.locator("(//span[contains(text(), 'Login')])[2]");
     }
 
-    async enterUserName(userName: string){
+    async enterUserName(userName: string) {
         await this.userNameInputField.fill(userName);
     };
 
-    async enterPassword(password: string){
+    async enterPassword(password: string) {
         await this.passwordInputField.fill(password);
     };
 
-    async clickRegisterButton(){
+    async clickRegisterButton() {
         await this.registerButton.click();
     };
 
-    async clickLoginButton(){
+    async clickLoginButton() {
         await this.loginButton.click();
     }
 }

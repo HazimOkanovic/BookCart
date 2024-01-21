@@ -1,6 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 
-export class CheckOutPage{
+export class CheckOutPage {
     readonly page: Page;
     readonly nameInputField: Locator;
     readonly firstAddressInputField: Locator;
@@ -9,7 +9,7 @@ export class CheckOutPage{
     readonly stateInputField: Locator;
     readonly placeOrderButton: Locator;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.nameInputField = page.locator("//input[@data-placeholder='Name']");
         this.firstAddressInputField = page.locator("//input[@data-placeholder='Address Line 1']");
@@ -19,27 +19,27 @@ export class CheckOutPage{
         this.placeOrderButton = page.locator("//span[contains(text(), 'Place Order')]");
     };
 
-    async enterName(name: string){
+    async enterName(name: string) {
         await this.nameInputField.fill(name);
     };
 
-    async enterFirstAddress(firstAddress: string){
+    async enterFirstAddress(firstAddress: string) {
         await this.firstAddressInputField.fill(firstAddress);
     };
 
-    async enterSecondAddress(secondAddress: string){
+    async enterSecondAddress(secondAddress: string) {
         await this.secondAddressInputField.fill(secondAddress);
     };
 
-    async enterPinCode(pinCode: string){
+    async enterPinCode(pinCode: string) {
         await this.pinCodeInputField.fill(pinCode);
     };
 
-    async enterState(state: string){
+    async enterState(state: string) {
         await this.stateInputField.fill(state);
     };
 
-    async clickPlaceOrder(){
+    async clickPlaceOrder() {
         await this.placeOrderButton.click();
     };
 };

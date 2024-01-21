@@ -1,8 +1,8 @@
 import { test, expect } from "../tests/baseTest";
-import { APIData } from "../utils/Data";
+import { APIData, apiURLs, data } from "../utils/Data";
 
 test("Login test", async ({ request }) => {
-    const response = await request.post("https://bookcart.azurewebsites.net/api/Login", {
+    const response = await request.post(apiURLs.login, {
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
@@ -11,13 +11,13 @@ test("Login test", async ({ request }) => {
     });
     const jsonResponse = await response.json();
 
-    expect(await response.status()).toBe(200);
-    expect(await jsonResponse.userDetails.username).toBe("HazimO");
-    expect(await jsonResponse.userDetails.userId).toBe(27148)
+    expect(await response.status()).toBe(data.okStatus);
+    expect(await jsonResponse.userDetails.username).toBe(data.validUsername);
+    expect(await jsonResponse.userDetails.userId).toBe(data.userId)
 });
 
 test("Register test", async ({ request }) => {
-    const response = await request.post("https://bookcart.azurewebsites.net/api/user", {
+    const response = await request.post(apiURLs.register, {
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
@@ -25,11 +25,11 @@ test("Register test", async ({ request }) => {
         data: APIData.registerData
     });
 
-    expect(await response.status()).toBe(200);
+    expect(await response.status()).toBe(data.okStatus);
 });
 
 test("Checkout test", async ({ request }) => {
-    const responseBook = await request.get("https://bookcart.azurewebsites.net/api/Book", {
+    const responseBook = await request.get(apiURLs.book, {
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
@@ -43,7 +43,7 @@ test("Checkout test", async ({ request }) => {
     const bookPrice = bookResponse[0].price;
     const bookAuthor = bookResponse[0].author;
 
-    const responseLogin = await request.post("https://bookcart.azurewebsites.net/api/Login", {
+    const responseLogin = await request.post(apiURLs.login, {
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
@@ -55,7 +55,7 @@ test("Checkout test", async ({ request }) => {
     const token = loginResponse.token;
     const userId = loginResponse.userDetails.userId;
 
-    const responseCheckout = await request.post("https://bookcart.azurewebsites.net/api/Checkout/" + userId, {
+    const responseCheckout = await request.post(apiURLs.checkOut + userId, {
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json",
@@ -81,5 +81,5 @@ test("Checkout test", async ({ request }) => {
         }
     });
 
-    expect(await responseCheckout.status()).toBe(200);
+    expect(await responseCheckout.status()).toBe(data.okStatus);
 });
