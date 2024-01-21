@@ -1,12 +1,21 @@
-Hello. 
+In this repository, I have created smoke tests for UI and API for https://bookcart.azurewebsites.net/. I have used the POM patter and I have created different folders for:
+* pages
+* tests
+* utils
 
-In this repository, I have created smoke tests for UI and API. These cases are as following:
-- login test
-- register test
-- checkout test
+##Smoke tests consist:
+* Creating a new user
+* User login
+* Choosing a book and adding it to the cart
+* Checkout
+* Logout
 
-I have used Visual Studio Code - https://code.visualstudio.com/
+###How to use?
+1. Clone the repository
+2. open the project
+3. From the terminal install all the dependencies using 'npm i'
 
-There are two dependencies for this project:
-- node.js 20.11.5 (it can be downloaded and installed by running a command in 'npm install', or by following this link https://nodejs.org/en)
-- playwright 1.41.1 (it can be downloaded and installed by running a command in 'npm init playwright@latest --yes -- --quiet --browser=chromium --gha')
+###Required software
+* Node js -> v.14 or above
+* VS Code
+* Playwright Vs Code Extension
