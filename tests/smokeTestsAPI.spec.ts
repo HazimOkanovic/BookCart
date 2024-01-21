@@ -1,29 +1,23 @@
-import { ApiBookPage } from "../apiPages/apiBookPage";
-import { ApiLoginPage } from "../apiPages/apiLoginPage";
-import { ApiOrderPage } from "../apiPages/apiOrderPage";
-import { ApiRegisterPage } from "../apiPages/apiRegisterPage";
-import { test, expect } from "../tests/base";
+import { ApiRequests } from "../apiPages/apiRequests";
+import { test } from "../tests/base";
 import { APIData, apiURLs, data } from "../utils/Data";
 
 test("API smoke test", async ({ request }) => {
-    const apiBookPage = new ApiBookPage(request);
-    await apiBookPage.getBooksRequest(data.okStatus);
+    const apiRequests = new ApiRequests(request);
+    await apiRequests.getRequest(apiURLs.book, data.okStatus);
 
-    const bookId = apiBookPage.bookCallResponse[0].bookId;
-    const bookTitle = apiBookPage.bookCallResponse[0].title;
-    const bookCategory = apiBookPage.bookCallResponse[0].category;
-    const bookPrice = apiBookPage.bookCallResponse[0].price;
-    const bookAuthor = apiBookPage.bookCallResponse[0].author;
+    const bookId = apiRequests.getResponse[0].bookId;
+    const bookTitle = apiRequests.getResponse[0].title;
+    const bookCategory = apiRequests.getResponse[0].category;
+    const bookPrice = apiRequests.getResponse[0].price;
+    const bookAuthor = apiRequests.getResponse[0].author;
 
-    const apiRegisterPage = new ApiRegisterPage(request);
-    await apiRegisterPage.registerRequest(APIData.registerData, data.okStatus)
+    await apiRequests.postRequestWithoutResponseBody(APIData.registerData, apiURLs.register, data.okStatus)
 
-    const apiLoginPage = new ApiLoginPage(request);
-    await apiLoginPage.loginRequest(APIData.registerData, data.okStatus);
+    await apiRequests.postRequest(APIData.registerData, apiURLs.login, data.okStatus);
 
-    const token = apiLoginPage.loginCallResponse.token;
-    const userId = apiLoginPage.loginCallResponse.userDetails.userId;
+    const token = apiRequests.postResponse.token;
+    const userId = apiRequests.postResponse.userDetails.userId;
 
-    const apiOrderPage = new ApiOrderPage(request);
-    await apiOrderPage.checkOutRequest(data.okStatus, token, userId, bookId, bookTitle, bookAuthor, bookCategory, bookPrice);
+    await apiRequests.checkOutRequest(data.okStatus, token, userId, bookId, bookTitle, bookAuthor, bookCategory, bookPrice);
 });
