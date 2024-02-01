@@ -1,6 +1,6 @@
 import { ApiRequests } from "../apiPages/apiRequests";
 import { test } from "../tests/base";
-import { APIData, apiURLs, data } from "../utils/Data";
+import { APIData, apiURLs, data } from "../data";
 
 test("API smoke test", async ({ request }) => {
     const apiRequests = new ApiRequests(request);
