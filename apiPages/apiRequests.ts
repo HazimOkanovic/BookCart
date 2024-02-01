@@ -1,5 +1,5 @@
 import { test, request, expect, APIRequestContext } from "@playwright/test";
-import { apiURLs } from "../utils/Data";
+import { apiURLs } from "../data";
 
 export class ApiRequests{
     readonly reqContext: APIRequestContext;
