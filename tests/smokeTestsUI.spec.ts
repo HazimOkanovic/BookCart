@@ -1,5 +1,5 @@
 import { expect, test } from "./base";
-import { data, pagesURL } from "../utils/Data";
+import { data, pagesURL } from "../data";
 
 test('Smoke test', async ({ baseURL, page, homePage, loginPage, registerPage, productPage, cartPage, checkOutPage, myOrdersPage }) => {
     await page.goto(`${baseURL}`);
